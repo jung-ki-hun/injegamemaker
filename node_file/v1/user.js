@@ -2,6 +2,21 @@ const jkh = require("../lib/function");
 const { Q, pool } = require('../db/db');
 
 
+/** 
+* @author jkh //작성자
+* @since 0.1 //버전
+* @module user 
+*/  
+/** 
+* 회원 가입
+* @method regiser 
+* @param {object}} req 
+* @param {object} res 
+* @returns {Number} 두 숫자를 더한 값 
+* @exception 
+* @todo 캐릭터 정보 초기값으로 세팅할 필요성이 있음
+* @since 0.1 //지원하기 시작한 번호
+*/
 const regiser = async (req, res) => {
     const response = {
         state: 1, // 상태표시 0: 실패, 1: 성공, 2변수없음, 3조회결과없음
