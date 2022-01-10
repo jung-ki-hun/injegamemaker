@@ -3,18 +3,18 @@ import path from path;
 import passport from passport;
 import cors from cors;
 import any from anyfunction;
-
+const app = express();
 class Start_set {
-    
-    constructor(){
+
+    constructor() {
 
     }//생성자
-    get_set_value(){
-        
+    get_set_value() {
+
     }
 }
 
-module.exports= {
+module.exports = {
     express,
     path,
     passport,
