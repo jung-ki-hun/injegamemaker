@@ -52,8 +52,9 @@ const regiser = async (req, res) => {
             response.msg = 'Duplicate values';
             return res.status(500).json(response);
         }//리턴하면 else가 필용없다.
+        
         // 이메일 형식 유효성 체크
-        if (!/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i.test(params.user_id)) {
+        if (!/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i.test(data.id)) {
             response.state = -1;
             response.msg = 'Invalid Email Format';
             return res.status(500).json(response);
