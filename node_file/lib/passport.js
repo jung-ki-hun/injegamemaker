@@ -1,7 +1,6 @@
 const passport = require('passport');
 const passport_local = require('passport-local');
 const jkh_fun = require('./function');
-const jkh_c = require('./config');
 const { pool, Q } = require('../db/db');//db 조회 용
 const LocalStrategy = passport_local.Strategy;
 
@@ -17,20 +16,10 @@ const index = async (id, pw) => {
         const sql1 = Q`
           SELECT 
             u.username,
-            ul.level_u,
             u.user_id
           FROM
             users u, users_level ul
-          WHERE        
-            ul.level_u in 
-            (select 
-                level_u 
-              from 
-                users_level ul2, 
-                users u2 
-              WHERE 
-                u2.user_id = ul2.user_id)
-            AND
+          WHERE     
             u.email = ${id}
             AND
             u.pw = ${pw_c}
@@ -39,7 +28,6 @@ const index = async (id, pw) => {
         console.log(`check type : ${query1.rows[0]}`);   
         if (jkh_fun.isEmpty(query1.rows[0])) {
             console.log('login fail');
-            //jkh_fun.webhook('err','login failed')//log 보내는 역활///webhook 뭐가 문제임?
             return null;
         }
         else {
@@ -53,7 +41,6 @@ const index = async (id, pw) => {
             const query2 = await pool.query(sql2);
             if (query2.errors) {
                 console.log(query2.errors);
-                //jkh_fun.webhook('err', 'login sql insert err(500)');
             }
         }
         await pool.query("COMMIT")//저장
@@ -62,7 +49,6 @@ const index = async (id, pw) => {
     catch (err) {
         console.error(err);
         await pool.query('ROLLBACK')//에러시 롤백
-        jkh_fun.webhook('err', 'login sql select err(500)')//log 보내는 역활
     }
 }//login 
 
