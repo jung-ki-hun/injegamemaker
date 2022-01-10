@@ -1,0 +1,9 @@
+.env
+/node_modules/
+./db.js
+./log/log/
+./log
+.log
+/web_server_d/
+/api/etc
+.vscode
