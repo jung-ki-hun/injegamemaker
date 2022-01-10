@@ -78,43 +78,7 @@ const createToken =  (user_id)=>{
 const token = jwt.sign({user_id: user_id}, jkh_key.app.key, {expiresIn: '1h'});
     return token;
 }
-// /********************************
-//  * ***********ip 차단 ***********
-// *********************************/
-// var geoip = require('geoip-country'); // 대상 찾기용
-// //var ipfiter = require('express-ipfilter').ipfiter; //벤용
-// //const { query } = require('express');
-// //국가 단위로 찾아보기 
-// const ip_denying = (req)=>{
-//     let ip = req.ip; //->ip를 받아와서
-//     let geo = geoip.lookup(ip); //-> 내부 모듈 
-//     var return_data ={
-//         ip:ip,
-//         state:0,
-//         country: geo.country
-//     }
-//     if(geo != null && geo.country != 'KR' && ip != '127.0.0.1'){
-//         return_data.state = 1;//밴 먹은 ip state = 1
-//         return return_data;
-//     }
-//     else{
-//         return return_data;
-//     }
-// }
 
-// /********************************
-//  * ********** 페이징  ***********
-// *********************************/
-// const pageid =(query,offset,limit)=>{
-//     const result = {
-//         offset: 0, // 시작 인덱스
-//         limit: Number(limit), // 조회할 갯수
-//         count: 0, // 전체 열 갯수
-//       };
-//       //if()
-//       //
-//       return result;
-// }
 /********************************
  * ********** 파일생성  ***********
 *********************************/
@@ -168,6 +132,7 @@ module.exports = {
     file_a,
     date_local_time,
     date_local_time_set,
+    createToken,
     appRoot,
     logstream
 }//log save

@@ -14,35 +14,6 @@ const config = {
         password: process.env.DB_PW || "rlgns123",
         database : process.env.DB_NAME || "projectb"
     },
-    // mysql: {
-    //     host: process.env.SDB_IP || "127.0.0.1",//argv_ip != '192.168.219.102' ?  '180.83.98.144':argv_ip.toString(),
-    //     port: process.env.SDB_PORT || "3306",
-    //     user: process.env.SDB_ID || "root",
-    //     password: process.env.SDB_PW || "rlgns123",
-    //     database: process.env.SDB_NAME || "projectb",
-    // },
-    // nodb: {
-
-    //     url: process.env.MON_URL || "mongodb://127.0.0.1",
-    //     port: process.env.MON_PORT || "27017",
-    //     database: process.env.MON_NAME || "projectb",
-    //     id: process.env.MON_ID || "",
-    //     password: process.env.MON_PW || ""
-
-    // },
-    // hook: {
-    //     url: process.env.WEB_HOOK || "",
-    // },
-    // naver:{
-    //     url: process.env.WEB_HOOK || "",
-    // },
-    // kakao:{
-    //     url: process.env.KAKAO_URL || "",
-    //     admin: process.env.KAKAO_ADMIN || "",
-    //     appkey: process.env.KAKAO_APP || "",
-    //     apikey: process.env.KAKAO_API || "",
-    //     jskey: process.env.KAKAO_JS || ""
-    // },
     err:{
         ERR_IP_NOT_COUNTRY:{
             status: 401,
