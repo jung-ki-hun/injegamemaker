@@ -3,6 +3,7 @@ import morgan from morgan;
 import passport from passport;
 import cors from cors;
 import any from anyfunction;
+const v1 = require('./v1/index');
 const jkh = require('./lib/function');
 const app = express();
 
@@ -16,7 +17,7 @@ app.use(express.urlencoded({ extends: true }));
 app.use(cookieParser());
 app.use(passport.initialize());//passport 실행
 app.use(morgan('combined', { stream: jkh_f.logstream }))//로그파일로 관리 함 1일단위
-
+app.use('/api/v1/', v1);
 
 app.listen(jkh.app.port, jkh.app.host, () => {
 	let str = `http://${jkh.app.host}:${jkh.app.port}/`;//api 접근 최상위 주소
