@@ -45,25 +45,6 @@ var date_local_time_set = (local) => {
 /********************************
  * ************암호화************
 *********************************/
-var crypto = require('crypto');
-//var shasum = crypto.createHash('sha256');
-var iv = Buffer.alloc(16,0);
-var key =crypto.scryptSync(jkh_key.app.ckey,'salt',32); //'$!@T!EFQT@#%!#TWGW@T!#@%^';// 비밀키
-var cipher = (password) => {
-    var cc = crypto.createCipher('aes192', key);
-    cc.update(password, 'utf-8', 'base64');
-    var cipstr = cc.final('base64');
-    return cipstr;
-}//암호화 함수 구버전
-
-var dcipher = (password) => {
-    var dc = crypto.createDecipheriv('aes192', key);
-    dc.update(password, 'base64', 'utf-8');
-    var dcipstr = dc.final('utf-8');
-    return dcipstr;
-}//복호화 함수
-////////////////////////////////////////////
-
 var cipheriv = (password) => {
     var cc = crypto.createCipheriv(jkh_key.app.carl,key,iv);//return -> cipher
     cc.update(password, 'utf-8', 'base64');
@@ -97,43 +78,43 @@ const createToken =  (user_id)=>{
 const token = jwt.sign({user_id: user_id}, jkh_key.app.key, {expiresIn: '1h'});
     return token;
 }
-/********************************
- * ***********ip 차단 ***********
-*********************************/
-var geoip = require('geoip-country'); // 대상 찾기용
-//var ipfiter = require('express-ipfilter').ipfiter; //벤용
-//const { query } = require('express');
-//국가 단위로 찾아보기 
-const ip_denying = (req)=>{
-    let ip = req.ip; //->ip를 받아와서
-    let geo = geoip.lookup(ip); //-> 내부 모듈 
-    var return_data ={
-        ip:ip,
-        state:0,
-        country: geo.country
-    }
-    if(geo != null && geo.country != 'KR' && ip != '127.0.0.1'){
-        return_data.state = 1;//밴 먹은 ip state = 1
-        return return_data;
-    }
-    else{
-        return return_data;
-    }
-}
+// /********************************
+//  * ***********ip 차단 ***********
+// *********************************/
+// var geoip = require('geoip-country'); // 대상 찾기용
+// //var ipfiter = require('express-ipfilter').ipfiter; //벤용
+// //const { query } = require('express');
+// //국가 단위로 찾아보기 
+// const ip_denying = (req)=>{
+//     let ip = req.ip; //->ip를 받아와서
+//     let geo = geoip.lookup(ip); //-> 내부 모듈 
+//     var return_data ={
+//         ip:ip,
+//         state:0,
+//         country: geo.country
+//     }
+//     if(geo != null && geo.country != 'KR' && ip != '127.0.0.1'){
+//         return_data.state = 1;//밴 먹은 ip state = 1
+//         return return_data;
+//     }
+//     else{
+//         return return_data;
+//     }
+// }
 
-/********************************
- * ********** 페이징  ***********
-*********************************/
-const pageid =(query,offset,limit)=>{
-    const result = {
-        offset: 0, // 시작 인덱스
-        limit: Number(limit), // 조회할 갯수
-        count: 0, // 전체 열 갯수
-      };
-      //if()
-      //
-      return result;
-}
+// /********************************
+//  * ********** 페이징  ***********
+// *********************************/
+// const pageid =(query,offset,limit)=>{
+//     const result = {
+//         offset: 0, // 시작 인덱스
+//         limit: Number(limit), // 조회할 갯수
+//         count: 0, // 전체 열 갯수
+//       };
+//       //if()
+//       //
+//       return result;
+// }
 /********************************
  * ********** 파일생성  ***********
 *********************************/
@@ -174,74 +155,19 @@ const file_a = (path,name,data)=>{
     });
 }//파일에 데이터 추가용 함수
 
-/********************************
- * ******* sql errorlog  ********
-*********************************/
-// const {Q,pool}=require('../../../db/psqldb');
-// const error_log_stack = (data) => {
-//     if(isEmpty(data)==true){
-//         return jkh_key.err.ERR_DB_EMPTY_DATA;//데이터값 비어져있음
-//     }//비어있다
-//     else{
-//         let sql = Q`
-//         insert into 
-//         logstack(errCord,content,errTime) 
-//         values(${data.code},${data.msg},${date_time()})`;
-//         try{
-//             const query1 = await pool.query(sql);//에러 DB에 저장하는 함수
-//             if (query1.errors) {
-//                 console.log(query2.errors);
-//                 jkh_fun.webhook('err', 'error save not db');
-//                 throw new Error;
-//             }
-//         }
-//         catch(e){
-//             console.log(e.message);
-//         }
-//     }        
-// }
-
-/********************************
- * ******* file multer  *********
-*********************************/
-const multer = require("multer");
-const { join } = require('path');
-const _storage = multer.diskStorage({
-    destination: (req,file,cb)=>{
-        cb(null,join.path(__dirname,'../db/image'));//파일 저장 경로
-    },
-    filename: (req,file,cb)=>{
-        //cb(null,file.filename + '-' + Date.now());//파일 이름 형식 - 사용자가 준거-현재시간
-        cb(null,"image - " + Date.now());//파일 이름 형식 - 사용자가 준거-현재시간
-    }
-})
-const upload = multer({storage:_storage});
-/********************************
- * ******** os moniter  *********
-*********************************/
-const os = require('os');
 
 module.exports = {
     isEmpty,
     isNan,
     date_time,
     date_ymd,
-    cipher,
-    dcipher,
     cipheriv,
     dcipheriv,
-    webhook,
-    createToken,
-    pageid,
-    ip_denying,
     file_r,
     file_w,
     file_a,
-    //error_log_stack,
     date_local_time,
     date_local_time_set,
     appRoot,
-    logstream,
-    upload
-
+    logstream
 }//log save
