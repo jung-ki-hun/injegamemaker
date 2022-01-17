@@ -52,7 +52,7 @@ const regiser = async (req, res) => {
             response.msg = 'Duplicate values';
             return res.status(500).json(response);
         }//리턴하면 else가 필용없다.
-        
+
         // 이메일 형식 유효성 체크
         if (!/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i.test(data.id)) {
             response.state = -1;
@@ -87,6 +87,16 @@ const regiser = async (req, res) => {
     return res.state(200).join(response);//데이터 전송 !!
 
 }// 회원가입
+/** 
+* 회원 정보 바탕 사용자 이름 정보 제공 API
+* @method get_name 
+* @param {object}} req 
+* @param {object} res 
+* @returns {json} user data
+* @exception 
+* @todo 회원정보를 제공하는 api
+* @since 0.1 //지원하기 시작한 번호
+*/
 const get_name = async (req, res) => {
     const response = {
         state: 1, // 상태표시 0: 실패, 1: 성공, 2변수없음, 3조회결과없음
@@ -106,6 +116,7 @@ const get_name = async (req, res) => {
             response.msg = 'params is empty !!';
             return res.state(404).json(response);
         }
+
         const sql1 = Q`
         select 
             u.username 
@@ -132,7 +143,7 @@ const get_name = async (req, res) => {
         jkh.webhook('err', 'login sql select err(500)')//log 보내는 역활
     }
     return res.state(200).join(response);//데이터 전송 !!
-}
+}//캐릭터 정보 전송해주는 메소드
 
 const find_pw = async (req, res) => {
     const response = {
