@@ -30,13 +30,7 @@ const index = async (req, res) => {
     app.group([],(router)=>{
       router.get('/in',[passport.authenticate('user.local', { session: false })],index),//로그인
       
-      // router.get('/in/naver',[passport.authenticate('user.naver', { session: false })]),//로그인
-      // router.get('/in/naver/callbake',[passport.authenticate('user.naver', { session: false })])//로그인 요청결과에 대한 응답처리
-  
-      // router.get('/in/kakao',[passport.authenticate('user.kakao', { session: false })]),//로그인 요청
-      // router.get('/in/kakao/callbake',[passport.authenticate('user.kakao', { session: false })],index_kakao ),//로그인 요청결과에대한 응답처리
-      // router.get('/out/kakao'),// 카카오 로그아웃
-  
+ 
       router.get('/out',del_log),// 로그아웃  // 미구현
       router.get('/test',test)// 테스트
       });

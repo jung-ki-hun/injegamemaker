@@ -5,4 +5,4 @@ CREATE TABLE character_m(
     c_level int NOT NULL,
     log_time TIMESTAMP,
     PRIMARY KEY(c_no)
-);--로그인 기록
+);--캐릭터 정보
