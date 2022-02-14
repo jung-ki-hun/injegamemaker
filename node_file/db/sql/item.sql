@@ -1,5 +1,6 @@
 CREATE TABLE item_list(
     il_no serial not null,
+    io_no serial REFERENCES item_option(io_no),
     item_type int not null, --무기/방어구/장신구/도구
     item_name VARCHAR(150) not null, -- 이름
     item_part int not null, -- 부위
