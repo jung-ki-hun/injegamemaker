@@ -4,6 +4,8 @@ CREATE TABLE character_m(
     c_name VARCHAR(100) NOT NULL, -- 캐릭터 이름
     log_time TIMESTAMP NOT NULL, --캐릭터 접근 시점 기록
     c_no_c Serial REFERENCES character_c(c_no_c),
+    c_no_a Serial REFERENCES character_c_a(c_no_a),
+    c_no_i Serial REFERENCES character_i(c_no_i),
     PRIMARY KEY(c_no_m)
 );--유저가 가지는 캐릭터
 CREATE TABLE character_c(
@@ -38,7 +40,8 @@ CREATE TABLE character_c_a(
     PRIMARY KEY(c_no_a)
 );-- 캐릭터 부가능력치(클라이언트에서 계산할수도 있기때문에.,,)
 CREATE TABLE character_i(
-
+    c_no_i serial not null,
+    
 ); -- 캐릭터 보유 아이템
 CREATE TABLE character_i_w(
 
