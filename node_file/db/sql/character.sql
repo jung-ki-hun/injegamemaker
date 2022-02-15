@@ -41,10 +41,12 @@ CREATE TABLE character_c_a(
 );-- 캐릭터 부가능력치(클라이언트에서 계산할수도 있기때문에.,,)
 CREATE TABLE character_i(
     c_no_i serial not null,
-    c_no_w serial REFERENCES character_i_w(c_no_w)
+    c_no_w serial REFERENCES character_i_w(c_no_w),
+    il_no serial REFERENCES item_list(il_no),
     PRIMARY KEY(c_no_i)
 ); -- 캐릭터 보유 아이템
 CREATE TABLE character_i_w(
     c_no_w serial not null,
+    il_no serial REFERENCES item_list(il_no), 
     PRIMARY KEY(c_no_w)
 ); -- 캐릭터 착용 아이템
